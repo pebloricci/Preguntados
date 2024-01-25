@@ -1,6 +1,6 @@
 package Modelo;
 
-public class modelo {
+public class Modelo {
 
         Pregunta[] preguntasCiencia = new Pregunta[3];
         Pregunta[] preguntasHistoria = new Pregunta[3];
@@ -9,8 +9,9 @@ public class modelo {
         Pregunta[] preguntasEntretenimiento = new Pregunta[3];
         Pregunta[] preguntasArte = new Pregunta[3];
 
-        Pregunta PreguntaCiencia = new Pregunta("Ciencia", "?", "lol");
-
-        preguntasCiencia[0] = PreguntaCiencia;
+        public Modelo(){
+                Pregunta PreguntaCiencia = new Pregunta("Ciencia", "?", "lol");
+                preguntasCiencia[0] = PreguntaCiencia;
+        }
 }
         
