@@ -13,6 +13,7 @@ public class Pregunta {
         this.respuestaCorrecta = respuestaCorrecta;
     }
     
+    
     public String getCategoria() {
         return categoria;
     }
@@ -41,8 +42,10 @@ public class Pregunta {
         return respuestasIncorrectas;
     }
 
-    public void setRespuestasIncorrectas(String[] respuestasIncorrectas) {
-        this.respuestasIncorrectas = respuestasIncorrectas;
+    public void setRespuestasIncorrectas(String r1, String r2, String r3) {
+        this.respuestasIncorrectas[0] = r1;
+        this.respuestasIncorrectas[1] = r2;
+        this.respuestasIncorrectas[2] = r3;
     }
 
 }
