@@ -5,7 +5,7 @@ public class Pregunta {
     private String categoria;
     private String pregunta;
     private String respuestaCorrecta;
-    private String[] respuestasIncorrectas  = new String[3];
+    public String[] respuestasIncorrectas  = new String[3];
 
     public Pregunta(String categoria, String pregunta, String respuestaCorrecta) {
         this.categoria = categoria;
