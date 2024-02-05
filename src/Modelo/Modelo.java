@@ -1,6 +1,12 @@
 package Modelo;
 import Vista.vista;
 import java.util.Random;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Modelo {
 
@@ -324,12 +330,69 @@ public class Modelo {
     public void ganador (Modelo m1, vista v1){
         if (m1.puntajeJ1 == 5){
             v1.jLabelResultado.setText("¡JUGADOR 1 HA GANADO!");
+            registrarGanador(m1);
             limpiar(v1);
         }
         if (m1.puntajeJ2 == 5){
             v1.jLabelResultado.setText("¡JUGADOR 2 HA GANADO!");
+            registrarGanador(m1);
             limpiar(v1);
         }        
+    }
+    
+    public void registrarGanador(Modelo m1){
+        String nombreArchivo = "./registroGanadores.txt";
+        // Obtener la fecha y hora actual
+        LocalDateTime now = LocalDateTime.now();
+        // Formatear la fecha y hora como una cadena
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
+        String contenido = "Jugador: " + (m1.getJjugando()+1) + " (Horario: " + formattedDateTime + ")." ;
+        try {
+            File archivo = new File(nombreArchivo);
+            
+            // Verificar si el archivo ya existe
+            if (archivo.exists()) {
+                System.out.println("El archivo ya existe. Agregando texto...");
+
+                // Agregar texto al archivo existente
+                try (FileWriter escritor = new FileWriter(archivo, true)) {
+                    escritor.write(contenido + "\n");
+                    System.out.println("Texto agregado con exito.");
+                } catch (IOException ex) {
+                    System.out.println("Error al agregar texto al archivo: " + ex.getMessage());
+                }
+            } else {
+                // El archivo no existe, crearlo
+                System.out.println("El archivo no existe. Creándolo...");
+
+                try {
+                    archivo.createNewFile();
+
+                    // Puedes agregar código aquí para escribir contenido inicial en el archivo si es necesario
+                    try (FileWriter escritor = new FileWriter(archivo)) {
+                        escritor.write(contenido + "\n");
+                        System.out.println("Archivo creado con éxito.");
+                    } catch (IOException ex) {
+                        System.out.println("Error al escribir contenido inicial en el archivo: " + ex.getMessage());
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Error al crear el archivo: " + ex.getMessage());
+                }
+            }
+
+            // Leer contenido del archivo
+            try (Scanner scanner = new Scanner(archivo)) {
+                while (scanner.hasNextLine()) {
+                    String linea = scanner.nextLine();
+                    System.out.println(linea);
+                }
+            } catch (IOException ex) {
+                System.out.println("Error al leer el archivo: " + ex.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println("Error general: " + e.getMessage());
+        }
     }
     
     public void limpiar (vista v1){
